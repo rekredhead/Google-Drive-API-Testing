@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+</head>
+<body>
+    <h1>File Upload Example</h1>
+    <input type="text" id="userId">
+    <br/>
+    <input type="file" id="myFileInput">
+    <button onclick="uploadFile()">Upload</button>
+    
+    <script>
+        const userIdInput = document.getElementById('userId');
+        const fileInput = document.getElementById('myFileInput');
+
+        const uploadFile = async() => {
+            const formData = new FormData(); // New Form Instance
+            const file = fileInput.files[0]; // Get only file from the file input
+
+            // Add text and file inputs to the form
+            formData.append('myFile', file);
+            formData.append('id', userIdInput.value);
+            
+            // Send the form data to the API
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const responseData = await response.json();
+            console.log(responseData);
+        }
+    </script>
+</body>
+</html>
