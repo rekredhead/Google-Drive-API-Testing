@@ -3,6 +3,7 @@ const stream = require('stream');
 const multer = require('multer');
 const path = require('path');
 const { google } = require('googleapis');
+require('dotenv').config();
 
 const router = express.Router();
 const upload = multer(); // Initialize upload middleware
@@ -33,7 +34,7 @@ const uploadFileToDrive = async(fileObject, userId) => {
         },
         requestBody: {
             name: `pension_user${userId}`, // Use text input from user to set name of the file
-            parents: ['1ox12vNfM6UvrSXK_GvxLidapC-bkdcQe'] // Google Drive Folder id
+            parents: [process.env.GOOGLEDRIVEFOLDERID] // Google Drive Folder id
         },
         fields: "id,name"
     });
